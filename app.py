@@ -2,7 +2,11 @@ import numpy as np
 import pickle
 import streamlit as st
 
-loaded_model=pickle.load(open("diabetes_model.sav",'rb'))
+@st.cache_resource  #Avoids reloading the model on every prediction
+def load_model():
+    return pickle.load(open("diabetes_model.sav",'rb'))
+
+laoded_model=load_model()
 
 def predict_diabetes(input_data):
     #changing the input_data to numpy array
